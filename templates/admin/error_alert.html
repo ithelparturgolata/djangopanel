@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Błąd importu{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Wystąpił błąd!</h4>
+      <p>Podczas importu danych napotkano na problem. Poniżej znajduje się więcej informacji na temat błędu.</p>
+      <hr>
+      <p class="mb-0">{{ message }}</p>
+    </div>
+    
+    <div class="mt-3">
+      <a href="{% url 'admin:index' %}" class="btn btn-secondary">Wróć do panelu administracyjnego</a>
+      <a href="{% url 'admin:finanse-import-excel' %}" class="btn btn-primary">Spróbuj ponownie</a>
+    </div>
+  </div>
+{% endblock %}

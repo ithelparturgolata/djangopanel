@@ -1,0 +1,71 @@
+{% extends 'base_sm.html' %}
+{% block content %}
+
+<div class="container my-4">
+    <h2 class="text-center">Zgłoszenie</h2>
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <form method="post" action="{% url 'formularz_zgloszeniowy' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_osiedle" class="form-label">{{ form.osiedle.label }}</label>
+                    {{ form.osiedle }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_budynek" class="form-label">{{ form.budynek.label }}</label>
+                    {{ form.budynek }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_temat" class="form-label">{{ form.temat.label }}</label>
+                    {{ form.temat }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_content" class="form-label">{{ form.content.label }}</label>
+                    {{ form.content }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_phone" class="form-label">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Wyślij zgłoszenie</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_osiedle').change(function () {
+            const osiedleId = $(this).val();
+            if (osiedleId) {
+                $.ajax({
+                    url: "{% url 'pobierz_budynki' %}",
+                    data: {
+                        'osiedle': osiedleId
+                    },
+                    success: function (data) {
+                        const budynekSelect = $('#id_budynek');
+                        budynekSelect.empty();
+                        budynekSelect.append('<option value="">Wybierz budynek</option>');
+                        data.forEach(function (budynek) {
+                            budynekSelect.append('<option value="' + budynek.id + '">' + budynek.ulica + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#id_budynek').empty().append('<option value="">Wybierz budynek</option>');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

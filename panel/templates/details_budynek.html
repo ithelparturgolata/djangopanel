@@ -1,0 +1,272 @@
+{% extends 'base_sm.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Początek Sekcji Budynek -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-building-fill"></i> &nbsp;
+                    <strong>Budynek</strong>
+                    <hr>
+                    {% if budynek_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Indeks:</strong> {{ budynek_info.indeks }}</p>
+                                <p><strong>Kod, ulica:</strong> {{ budynek_info.kod }}, {{ budynek_info.ulica }}</p>
+                                <p><strong>Osiedle:</strong> {{ budynek_info.osiedle }}</p>
+                                <p><strong>Telefon:</strong> {{ budynek_info.telefon_osiedla }}</p>
+                                <p><strong>Rok budowy:</strong> {{ budynek_info.rok_budowy }}</p>
+                                <p><strong>Działka:</strong> {{ budynek_info.dzialka }}</p>
+                                <p><strong>Obręb:</strong> {{ budynek_info.obreb }}</p>
+                                <p><strong>Łączna powierzchnia
+                                    działki:</strong> {{ budynek_info.laczna_powierzchnia_dzialki }} m<sup>2</sup></p>
+                                <p><strong>Powierzchnia wspólna
+                                    budynku:</strong> {{ budynek_info.powierzchnia_wspolna_budynku }} m<sup>2</sup></p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted alert alert-danger">Brak danych dla tego budynku.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Budynek -->
+
+    <!-- Początek Sekcji Kierownik -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-person-fill"></i>
+                    <strong>Kierownik</strong>
+                    <hr>
+                    {% if kierownik_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Imię i
+                                    nazwisko:</strong> {{ kierownik_info.imie_kierownik }} {{ kierownik_info.nazwisko_kierownik }}
+                                </p>
+                                <p><strong>Telefon:</strong> {{ kierownik_info.telefon_kierownik }}</p>
+                                <p><strong>Email:</strong> {{ kierownik_info.email_kierownik }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted alert alert-danger">Brak danych dla tego budynku.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Kierownik -->
+
+    <!-- Początek Sekcji Administrator -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-person-check-fill" aria-hidden="true"></i> &nbsp;
+                    <strong>Administrator</strong>
+                    <hr>
+                    {% if administrator_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Imię i
+                                    nazwisko:</strong> {{ administrator_info.imie_administrator }} {{ administrator_info.nazwisko_administrator }}
+                                </p>
+                                <p><strong>Telefon:</strong> {{ administrator_info.komorka_administrator }}</p>
+                                <p><strong>Email:</strong> {{ administrator_info.email_administrator }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted alert alert-danger">Brak danych dla tego budynku.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Administrator -->
+
+    <!-- Początek Sekcji Remonty -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-hammer" aria-hidden="true"></i> &nbsp;
+                    <strong>Remonty</strong>
+                    <hr>
+                    {% if remonty_info %}
+                        {% for remonty in remonty_info %}
+                            <div class="row">
+                                <div class="col-10">
+                                    <p><strong>Firma:</strong> {{ remonty.wykonawca }}</p>
+                                    <p><strong>Start:</strong> {{ remonty.poczatek_prac }}</p>
+                                    <p><strong>Koniec:</strong> {{ remonty.koniec_prac }}</p>
+                                    <p><strong>Opis:</strong> {{ remonty.opis_remontu }}</p>
+                                    {% if remonty.uchwala %}
+                                        <p><a href="{{ remonty.uchwala }}" target="_blank"
+                                              class="btn btn-outline-secondary">Pobierz uchwałę</a></p>
+                                    {% endif %}
+                                    {% if remonty.ankieta %}
+                                        <p><a href="{{ remonty.ankieta }}" target="_blank"
+                                              class="btn btn-outline-secondary">Pobierz ankietę</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted alert alert-danger">Remonty: brak danych dla tego budynku.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Remonty -->
+
+    <!-- Sekcja Przeglądy -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-list-check" aria-hidden="true"></i> &nbsp;
+                    <strong>Przeglądy</strong>
+                    <hr>
+                    {% if przeglady_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Kominiarski:</strong> {{ przeglady_info.aktualny_przeglad_kominiarski }}</p>
+                                <p><strong>Gazowy:</strong> {{ przeglady_info.aktualny_przeglad_gazowy }}</p>
+                                <p><strong>Roczny:</strong> {{ przeglady_info.aktualny_przeglad_roczny_budynku }}</p>
+                                <p>
+                                    <strong>Pięcioletni:</strong> {{ przeglady_info.aktualny_przeglad_piecioletni_budynku }}
+                                </p>
+                                <p><strong>Planowany
+                                    Kominiarski:</strong> {{ przeglady_info.planowany_przeglad_kominiarski }}</p>
+                                <p><strong>Planowany Gazowy:</strong> {{ przeglady_info.planowany_przeglad_gazowy }}</p>
+                                <p><strong>Planowany
+                                    Roczny:</strong> {{ przeglady_info.planowany_przeglad_roczny_budynku }}</p>
+                                <p><strong>Planowany
+                                    Pięcioletni:</strong> {{ przeglady_info.planowany_przeglad_piecioletni_budynku }}
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted alert alert-danger">Przeglądy: brak danych dla tego
+                            budynku.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Przeglady -->
+
+    <!-- Początek Sekcji Śmieci -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-recycle" aria-hidden="true"></i> &nbsp;
+                    <strong>Śmieci</strong>
+                    <hr>
+                    {% if smieci_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Styczeń:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Luty:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Marzec:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Kwiecień:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Maj:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Czerwiec:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Lipiec:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Sierpień:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Wrzesień:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Październik:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Listopad:</strong> {{ smieci_info.styczen }}</p>
+                                <p><strong>Grudzień:</strong> {{ smieci_info.styczen }}</p>
+                            </div>
+                        </div>
+                        </div>
+                    {% else %}
+                        <div class="col-12">
+                            <p class="text-center text-muted  alert alert-danger">Śmieci: brak danych dla tego
+                                budynku.</p>
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Śmieci -->
+
+    <!-- Początek Sekcji Energetyka -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-thermometer-sun" aria-hidden="true"></i> &nbsp;
+                    <strong>Energetyka</strong>
+                    <hr>
+                    {% if energetyka_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Termin podzielniki:</strong> {{ energetyka_info.termin_podzielniki }}</p>
+                                <p><strong>Termin legalizacji
+                                    wodomierzy:</strong> {{ energetyka_info.termin_legalizacji_wodomierzy }}</p>
+                                <p><strong>Uwagi do legalizacji
+                                    wodomierzy:</strong> {{ energetyka_info.uwagi_legalizacja_wodomierzy }}</p>
+                                <p><strong>Wymiana baterii:</strong> {{ energetyka_info.wymiana_baterii }}</p>
+                                <p><strong>Uwagi do wymiany
+                                    baterii:</strong> {{ energetyka_info.uwagi_wymiana_baterii }}</p>
+                            </div>
+                        </div></div>
+                    {% else %}
+                        <div class="col-12">
+                            <p class="text-center text-muted  alert alert-danger">Energetyka: brak danych dla tego
+                                budynku.</p>
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Energetyka -->
+
+    <!-- Początek Sekcji Finanse -->
+    <div class="row">
+        <div class="col-sm-8 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bi bi-cash" aria-hidden="true"></i> &nbsp;
+                    <strong>Finanse</strong>
+                    <hr>
+                    {% if finanse_info %}
+                        <div class="row">
+                            <div class="col-10">
+                                <p><strong>Zadłużenie budynku:</strong> {{ finanse_info.zadluzenie_budynku }} zł</p>
+                                <hr>
+                                <p><strong>Fundusz remontowy budynku:</strong> {{ finanse_info.fundusz_remontowy }}
+                                    zł</p>
+                            </div>
+                        </div>
+                        </div>
+                    {% else %}
+                        <div class="col-12">
+                            <p class="text-center text-muted  alert alert-warning">Zadłużenie, fundusz remontowy:
+                                brak
+                                danych dla tego budynku.</p>
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Koniec Sekcji Finanse -->
+
+{% endblock %}

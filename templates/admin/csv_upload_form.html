@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <h2>Importuj plik CSV</h2>
+    <hr>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit" class="button" style="padding: 7px 15px; font-size: 14px;">Zaimportuj</button>
+  </form>
+{% endblock %}

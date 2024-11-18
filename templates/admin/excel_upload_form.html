@@ -1,0 +1,17 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+  <h2>Import danych z pliku Excel</h2>
+  <hr>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      <label for="id_excel_file">Wybierz plik Excel:</label>
+      {{ form.excel_file }}
+    </div>
+    <div class="submit-row">
+      <button type="submit" class="button" style="padding: 7px 15px; font-size: 14px;">Importuj</button>
+    </div>
+  </form>
+{% endblock %}

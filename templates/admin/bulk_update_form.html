@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <h2>Masowa aktualizacja budynków</h2>
+  <p>Masz wybrane {{ budynki.count }} budynki:</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="apply">Zastosuj</button>
+    <a href="{% url 'admin:budynek_changelist' %}" class="button">Anuluj</a>
+  </form>
+{% endblock %}
